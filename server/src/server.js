@@ -53,6 +53,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+const path = require('path');
+
+// Serve Frontend Client build if available
+const clientDistPath = path.join(__dirname, '../../client/dist');
+app.use(express.static(clientDistPath));
+
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes);
@@ -61,6 +67,19 @@ app.use('/api/zones', zoneRoutes);
 app.use('/api/rate-cards', rateCardRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/analytics', analyticsRoutes);
+
+// SPA fallback: Serve client index.html for frontend routes
+app.get('*', (req, res, next) => {
+  if (req.url.startsWith('/api') || req.url.startsWith('/socket.io')) {
+    return next();
+  }
+  const indexPath = path.join(clientDistPath, 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      next();
+    }
+  });
+});
 
 // Error Handling
 app.use(notFound);
