@@ -4,7 +4,7 @@
   "description": "Gourish Last-Mile Delivery Tracker platform with MERN stack, smart pricing engine, and physics-enhanced auto-assignment.",
   "scripts": {
     "build": "cd client && npm install && npm run build && cd ../server && npm install",
-    "start": "node server/src/server.js",
+    "start": "cd server && node src/server.js",
     "install:all": "npm install && npm run install:server && npm run install:client",
     "install:server": "cd server && npm install",
     "install:client": "cd client && npm install",
