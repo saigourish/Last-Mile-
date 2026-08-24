@@ -1,41 +1,268 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
   code, pre, .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
 }
 
-/* Custom Gourish Logistics Utilities */
+/* Base Glassmorphism & Panel Utilities */
 .glass-panel {
-  background: rgba(17, 23, 38, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .glass-card {
-  background: rgba(22, 31, 51, 0.6);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .glass-card-hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.glass-card-hover:hover {
-  background: rgba(30, 41, 59, 0.7);
-  border-color: rgba(0, 240, 255, 0.3);
-  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.15);
+/* =========================================================
+   DARK THEME SPECIFIC STYLING (.dark)
+   ========================================================= */
+.dark .glass-panel {
+  background: rgba(17, 23, 38, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.dark .glass-card {
+  background: rgba(22, 31, 51, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dark .glass-card-hover:hover {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.2);
   transform: translateY(-2px);
 }
 
+.dark .bg-radial-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(11, 15, 25, 0.9);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.4);
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.6);
+}
+
+/* =========================================================
+   LIGHT THEME SPECIFIC STYLING (html:not(.dark))
+   High contrast, crisp typography, clean shadows
+   ========================================================= */
+html:not(.dark) {
+  color-scheme: light;
+}
+
+html:not(.dark) .glass-panel {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+}
+
+html:not(.dark) .glass-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+html:not(.dark) .glass-card-hover:hover {
+  background: #ffffff;
+  border-color: rgba(6, 182, 212, 0.6);
+  box-shadow: 0 12px 25px -5px rgba(6, 182, 212, 0.15);
+  transform: translateY(-2px);
+}
+
+html:not(.dark) .bg-radial-grid {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Light Theme High Contrast Typography */
+html:not(.dark) .text-white {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .text-slate-100 {
+  color: #1e293b !important;
+}
+
+html:not(.dark) .text-slate-200 {
+  color: #334155 !important;
+}
+
+html:not(.dark) .text-slate-300 {
+  color: #475569 !important;
+}
+
+html:not(.dark) .text-slate-400 {
+  color: #64748b !important;
+}
+
+html:not(.dark) .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* Light Theme Background Overrides */
+html:not(.dark) .bg-space-950 {
+  background-color: #f8fafc !important;
+}
+
+html:not(.dark) .bg-space-900 {
+  background-color: #f1f5f9 !important;
+}
+
+html:not(.dark) .bg-space-850 {
+  background-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .bg-space-800 {
+  background-color: #cbd5e1 !important;
+}
+
+html:not(.dark) .border-slate-800 {
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .border-slate-800\/80,
+html:not(.dark) .border-slate-800\/60 {
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .border-slate-700,
+html:not(.dark) .border-slate-700\/80 {
+  border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) .divide-slate-800\/60 > :not([hidden]) ~ :not([hidden]),
+html:not(.dark) .divide-slate-800 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e2e8f0 !important;
+}
+
+/* Light Theme Forms & Inputs */
+html:not(.dark) input:not([type="checkbox"]):not([type="radio"]),
+html:not(.dark) select,
+html:not(.dark) textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+html:not(.dark) input:focus,
+html:not(.dark) select:focus,
+html:not(.dark) textarea:focus {
+  border-color: #06b6d4 !important;
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2) !important;
+}
+
+/* Light Theme Tinted Badges & Panels */
+html:not(.dark) .bg-cyan-950\/40,
+html:not(.dark) .bg-cyan-950\/50,
+html:not(.dark) .bg-cyan-950\/60 {
+  background-color: #ecfeff !important;
+}
+
+html:not(.dark) .bg-indigo-950\/40,
+html:not(.dark) .bg-indigo-950\/50,
+html:not(.dark) .bg-indigo-950\/60 {
+  background-color: #eef2ff !important;
+}
+
+html:not(.dark) .bg-purple-950\/40,
+html:not(.dark) .bg-purple-950\/50,
+html:not(.dark) .bg-purple-950\/60 {
+  background-color: #faf5ff !important;
+}
+
+html:not(.dark) .bg-emerald-950\/40,
+html:not(.dark) .bg-emerald-950\/50,
+html:not(.dark) .bg-emerald-950\/60 {
+  background-color: #ecfdf5 !important;
+}
+
+html:not(.dark) .bg-amber-950\/40,
+html:not(.dark) .bg-amber-950\/50,
+html:not(.dark) .bg-amber-950\/60 {
+  background-color: #fefce8 !important;
+}
+
+html:not(.dark) .bg-rose-950\/40,
+html:not(.dark) .bg-rose-950\/50,
+html:not(.dark) .bg-rose-950\/60 {
+  background-color: #fff1f2 !important;
+}
+
+/* Light Theme Accent Colors */
+html:not(.dark) .text-cyan-400 {
+  color: #0891b2 !important;
+}
+
+html:not(.dark) .text-indigo-400 {
+  color: #4f46e5 !important;
+}
+
+html:not(.dark) .text-purple-400 {
+  color: #7c3aed !important;
+}
+
+html:not(.dark) .text-emerald-400,
+html:not(.dark) .text-emerald-300 {
+  color: #059669 !important;
+}
+
+html:not(.dark) .text-amber-400,
+html:not(.dark) .text-amber-300 {
+  color: #d97706 !important;
+}
+
+html:not(.dark) .text-rose-400,
+html:not(.dark) .text-rose-300 {
+  color: #e11d48 !important;
+}
+
+/* Light Theme Scrollbars */
+html:not(.dark) ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Glow effects */
 .glow-cyan {
   box-shadow: 0 0 20px -3px rgba(0, 240, 255, 0.35);
 }
@@ -52,26 +279,8 @@
   box-shadow: 0 0 20px -3px rgba(244, 63, 94, 0.35);
 }
 
-.bg-radial-grid {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* Custom Scrollbars */
+/* Custom Scrollbars Size */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(11, 15, 25, 0.8);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.4);
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 240, 255, 0.6);
 }
